@@ -16,7 +16,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore'
 import { environment } from '../environments/environment.development';
-import { AngularFireModule } from '@angular/fire/compat';
 import { CrudComponent } from './pages/crud/crud.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,6 +23,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
+
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { ModalViewUserComponent } from './pages/crud/modal-view-user/modal-view-user.component';
 
 
 @NgModule({
@@ -33,7 +37,8 @@ import { MatSortModule} from '@angular/material/sort';
     LoginComponent,
     HomeComponent,
     MenuComponent,
-    CrudComponent
+    CrudComponent,
+    ModalViewUserComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,7 @@ import { MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [

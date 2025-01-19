@@ -14,7 +14,7 @@
             <app-button class="float-end" textButton="+ cadastrar"></app-button>
 
             <mat-form-field>
-                <mat-label>Filter</mat-label>
+                <mat-label>Busca por usuário</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Busca por usuário" #input>
             </mat-form-field>
 
@@ -64,7 +64,7 @@
                 <ng-container matColumnDef="action">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> </th>
                     <td class="th-table" mat-cell *matCellDef="let user">
-                        <mat-icon class="icone-tabela">visibility</mat-icon>
+                        <mat-icon class="icone-tabela" (click)="openModalViewUser(user)">visibility</mat-icon>
                         <mat-icon class="icone-tabela">edit</mat-icon>
                         <mat-icon class="icone-tabela">delete</mat-icon>
                     </td>
