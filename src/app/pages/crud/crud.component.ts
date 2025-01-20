@@ -39,6 +39,8 @@ export class CrudComponent {
     this.dataSource.sort = this.sort;
   }
 
+  // FUNÇÕES DOS USUARIOS
+
   // Foi na lista de usuarios chamando a função getAllUsers, que conecta em uma coleção de usuarios e retornou eles ordenados por ordem alfabetica, junto com o firebaseId
   getListUsers() {
     this.usersService.getAllUsers().subscribe({
@@ -56,6 +58,16 @@ export class CrudComponent {
       }
     });
   }
+
+  deleteUser(firebaseId: string) {
+    this.usersService.deleteUser(firebaseId).then(
+      (Response: any) => {
+        window.alert('Usuário excluído com sucesso')
+      }
+    )
+  }
+
+  // FIM DAS FUNÇÕES DOS USUARIOS
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -53,7 +53,7 @@ export class ModalFormUserComponent {
 
   ngOnInit() {
     this.buildForm();
-    if (this.data && this.data.name){
+    if (this.data && this.data.name) {
       this.editUser = true;
     }
   }
