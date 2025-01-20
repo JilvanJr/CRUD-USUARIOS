@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UsersService } from '../../../services/users.service';
+import { User } from '../../../interfaces/user';
 
 @Component({
   selector: 'app-modal-form-user',
@@ -40,15 +42,50 @@ export class ModalFormUserComponent {
   ];
 
   formUser: FormGroup;
+  editUser: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ModalFormUserComponent>,
     private formBuilder: FormBuilder,
+    private userService: UsersService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildForm();
+    if (this.data && this.data.name){
+      this.editUser = true;
+    }
+  }
+
+  saveUser() {
+    const objUserForm: User = this.formUser.getRawValue();
+
+    if (this.data && this.data.name) {
+      // EDITAR USUARIO
+      this.userService.update(this.data.firebaseId, objUserForm).then(
+        (response: any) => {
+          window.alert('Usuário editado com sucesso');
+          this.closeModal();
+        }).catch(
+          err => {
+            window.alert('Houve um erro ao editar o usuário');
+            console.error(err);
+          }
+        );
+    } else {
+      // SALVAR USUARIO
+      this.userService.addUser(objUserForm).then(
+        (response: any) => {
+          window.alert('Usuário salvo com sucesso');
+          this.closeModal();
+        }).catch(
+          err => {
+            window.alert('Houve um erro ao editar o usuário');
+            console.error(err);
+          }
+        );
+    }
   }
 
   buildForm() {
@@ -60,6 +97,22 @@ export class ModalFormUserComponent {
       healthPlan: [''],
       dentalPlan: [''],
     });
+
+    if (this.data && this.data.name) {
+      this.fillForm();
+    }
+  }
+
+  // Preencher os campos do formulario para edição
+  fillForm() {
+    this.formUser.patchValue({
+      name: this.data.name,
+      email: this.data.email,
+      sector: this.data.sector,
+      role: this.data.role,
+      healthPlan: this.data.healthPlan,
+      dentalPlan: this.data.dentalPlan,
+    })
   }
 
   closeModal() { this.dialogRef.close(); }
